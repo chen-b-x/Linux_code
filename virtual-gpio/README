@@ -1,0 +1,6 @@
+本次驱动开发主要涉及如下两部分的内容：
+
+实现一个platform device，用于传递虚拟gpio控制器的信息，包括gpio base index、gpio num等
+实现一个platform driver，该drvier实现的功能如下：
+platform driver主要用于与上述platform device完成绑定，并根据platform dev提供的控制器参数，填充struct gpio_chip类型变量，并调用gpiochip_add完成gpio_chip的注册；
+为该platform device在/sys下创建3个属性文件，分别为vgpio_dir(模拟gpio方向寄存器，查看该虚拟gpio控制器的方向配置参数，该属性设置为只读，仅可通过gpio_chip提供的属性文件进行方向配置)、vgpio_in（模拟gpio输入寄存器，该属性为读写，我们可通过修改vgpio_in的值，模拟输入值，用以供虚拟gpio_chip进行查看）、vgpio_out（模拟gpio输出寄存器，该属性为只读）。
